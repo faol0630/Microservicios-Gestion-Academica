@@ -54,7 +54,9 @@ public class CourseApplication implements CommandLineRunner {
 		System.out.println("\n========================================================");
 		System.out.println("    🚀 Microservicio de Cursos Iniciado");
 		System.out.println("    ✅ Servidor Tomcat iniciado correctamente");
+		System.out.println("    📚 Swagger UI: http://localhost:8081/swagger-ui.html");
 		System.out.println("    ✅ Url: http://localhost:8081/course");
+		System.out.println("    ✅ DB Url: http://localhost/phpmyadmin");
 		System.out.println("========================================================\n");
 		System.out.println("========================================================\n");
 	}

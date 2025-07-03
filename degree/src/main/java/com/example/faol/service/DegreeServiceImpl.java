@@ -1,6 +1,9 @@
 package com.example.faol.service;
 
+import com.example.faol.dto.DegreeDTO;
 import com.example.faol.entity.Degree;
+import com.example.faol.exception.ResourceNotFoundException;
+import com.example.faol.mapper.DegreeMapper;
 import com.example.faol.models.ResponseWrapper2;
 import com.example.faol.models.Student;
 import com.example.faol.repository.DegreeRepository;
@@ -12,13 +15,13 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DegreeServiceImpl implements DegreeServiceInt {
 
-    DegreeRepository degreeRepository;
-    RestTemplate restTemplate;
+    private final DegreeRepository degreeRepository;
+    private final RestTemplate restTemplate;
 
     public DegreeServiceImpl(DegreeRepository degreeRepository, RestTemplate restTemplate) {
         this.degreeRepository = degreeRepository;
@@ -26,31 +29,34 @@ public class DegreeServiceImpl implements DegreeServiceInt {
     }
 
     @Override
-    public List<Degree> getAllDegrees() {
-        return degreeRepository.findAll();
+    public List<DegreeDTO> getAllDegrees() {
+        return degreeRepository.findAll().stream()
+                .map(DegreeMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Degree> getDegreeById(Long id) {
-        return degreeRepository.findById(id);
+    public DegreeDTO getDegreeById(Long id) {
+        Degree degree = degreeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Degree not found with id: " + id));
+        return DegreeMapper.toDTO(degree);
     }
 
     @Override
-    public Degree saveDegree(Degree degree) {
-        return degreeRepository.save(degree);
+    public DegreeDTO saveDegree(Degree degree) {
+        Degree savedDegree = degreeRepository.save(degree);
+        return DegreeMapper.toDTO(savedDegree);
     }
 
     @Override
-    public Degree updateDegree(Degree degree, Long id) {
-        Optional<Degree> degreeToUpdate = degreeRepository.findById(id);
-        Degree updatedDegree = new Degree();
-        if (degreeToUpdate.isPresent()) {
-            updatedDegree = degreeToUpdate.get();
-            updatedDegree.setName(degree.getName());
-            updatedDegree.setDuration(degree.getDuration());
-            updatedDegree.setTotal_cost(degree.getTotal_cost());
-        }
-        return degreeRepository.save(updatedDegree);
+    public DegreeDTO updateDegree(Degree degree, Long id) {
+        Degree degreeToUpdate = degreeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Degree not found with id: " + id));
+        degreeToUpdate.setName(degree.getName());
+        degreeToUpdate.setDuration(degree.getDuration());
+        degreeToUpdate.setTotal_cost(degree.getTotal_cost());
+        Degree updatedDegree = degreeRepository.save(degreeToUpdate);
+        return DegreeMapper.toDTO(updatedDegree);
     }
 
     @Override

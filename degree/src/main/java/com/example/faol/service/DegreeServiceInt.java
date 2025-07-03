@@ -1,17 +1,17 @@
 package com.example.faol.service;
 
+import com.example.faol.dto.DegreeDTO;
 import com.example.faol.entity.Degree;
 import com.example.faol.models.Student;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DegreeServiceInt {
 
-    List<Degree> getAllDegrees();
-    Optional<Degree> getDegreeById(Long id);
-    Degree saveDegree(Degree degree);
-    Degree updateDegree(Degree degree, Long id);
+    List<DegreeDTO> getAllDegrees();
+    DegreeDTO getDegreeById(Long id);
+    DegreeDTO saveDegree(Degree degree);
+    DegreeDTO updateDegree(Degree degree, Long id);
     void deleteDegreeById(Long id);
     void deleteAllDegrees();
     Long getDegreeCount();

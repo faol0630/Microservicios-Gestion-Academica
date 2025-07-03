@@ -7,7 +7,7 @@ public class ResponseWrapper {
     // public ResponseEntity<?> getAllCoursesByStudentId(@PathVariable Long id)
     // en el controller del microservicio Course:
     private String message;
-    private List<Course> courses; //esto debe coincidir con la respuesta del micro servicio Course
+    private List<CourseDTO> courses; //esto debe coincidir con la respuesta del microservicio Course
     // (response.put("courses", courses);
 
     // Getters y Setters
@@ -19,11 +19,11 @@ public class ResponseWrapper {
         this.message = message;
     }
 
-    public List<Course> getCourses() {  // Cambiar getter
+    public List<CourseDTO> getCourses() {  // Cambiar getter
         return courses;
     }
 
-    public void setCourses(List<Course> courses) {  // Cambiar setter
+    public void setCourses(List<CourseDTO> courses) {  // Cambiar setter
         this.courses = courses;
     }
 

@@ -1,7 +1,9 @@
 package com.example.faol.controller;
 
-import com.example.faol.Models.Course;
+import com.example.faol.Models.CourseDTO;
+import com.example.faol.dto.StudentDTO;
 import com.example.faol.entity.Student;
+import com.example.faol.exception.ResourceNotFoundException;
 import com.example.faol.service.StudentServiceInt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,92 +12,93 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
 
-    private StudentServiceInt studentService;
+    private final StudentServiceInt studentService;
 
     public StudentController(StudentServiceInt studentService) {
         this.studentService = studentService;
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllStudents(){
-        Map<String, Object> response = new HashMap<>();
-        List<Student> students = studentService.getAllStudents();
-        response.put("message", "All students retrieved successfully");
-        response.put("students", students);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public List<StudentDTO> getAllStudents(){
+        return studentService.getAllStudents();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getStudentById(@PathVariable Long id){
-        Map<String, Object> response = new HashMap<>();
-        Optional<Student> student = studentService.getStudentById(id);
-        response.put("message", "Student retrieved successfully");
-        response.put("student", student);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public StudentDTO getStudentById(@PathVariable Long id){
+        return studentService.getStudentById(id);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> saveStudent(@RequestBody Student student){
-        Map<String, Object> response = new HashMap<>();
-        Student savedStudent = studentService.saveStudent(student);
-        response.put("message", "Student saved successfully");
-        response.put("student", savedStudent);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    @ResponseStatus(HttpStatus.CREATED)
+    public StudentDTO saveStudent(@RequestBody Student student){
+        return studentService.saveStudent(student);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateStudent(@RequestBody Student student, @PathVariable Long id){
-        Map<String, Object> response = new HashMap<>();
-        Student updatedStudent = studentService.updateStudent(student, id);
-        response.put("message", "Student updated successfully");
-        response.put("student", updatedStudent);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public StudentDTO updateStudent(@RequestBody Student student, @PathVariable Long id){
+        return studentService.updateStudent(student, id);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteStudentById(@PathVariable Long id){
-        Map<String, Object> response = new HashMap<>();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteStudentById(@PathVariable Long id){
         studentService.deleteStudentById(id);
-        response.put("message", "Student deleted successfully");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteAllStudents(){
-        Map<String, Object> response = new HashMap<>();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAllStudents(){
         studentService.deleteAllStudents();
-        response.put("message", "All students deleted successfully");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/count")
-    public ResponseEntity<?> getStudentCount(){
-        Map<String, Object> response = new HashMap<>();
-        Long studentCount = studentService.getStudentCount();
-        response.put("message", "Student count retrieved successfully");
-        response.put("studentCount", studentCount);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public Long getStudentCount(){
+        return studentService.getStudentCount();
     }
 
-    @GetMapping("/allByStudentId/{studentId}")
+    //este metodo se debe corregir
+    //este metodo se debe corregir
+    //este metodo se debe corregir
+    @GetMapping("/allCoursesByStudentId/{studentId}")
     public ResponseEntity<?> allByStudentId(@PathVariable Long studentId){
         Map<String, Object> response = new HashMap<>();
-        List<Course> allCourseListByStudenttId = studentService.allByStudentId(studentId);
-        response.put("message", "All courses by studentId retrieved successfully");
-        response.put("list", allCourseListByStudenttId);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        try {
+
+            List<CourseDTO> courses = studentService.allByStudentId(studentId);
+
+            if (courses == null) {
+                response.put("message", "Null student list with id: " + studentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+
+            } else if (courses.isEmpty()) {
+                response.put("message", "No courses found for studentId: " + studentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+
+            }
+            response.put("message", "All courses by studentId retrieved successfully");
+            response.put("courses", courses                                                                                            );
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+
+        }catch (ResourceNotFoundException e) {
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        } catch (Exception e) {
+            response.put("message", "Error while retrieving courses");
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
     }
 
     @GetMapping("/allStudentsByDegreeId/{degreeId}")
     public ResponseEntity<?> getAllStudentsByDegreeId(@PathVariable Long degreeId){
         Map<String, Object> response = new HashMap<>();
-        List<Student> allStudentsByDegreeId = studentService.getAllStudentsByDegreeId(degreeId);
+        List<StudentDTO> allStudentsByDegreeId = studentService.getAllStudentsByDegreeId(degreeId);
         response.put("message", "All students by degreeId retrieved successfully");
         response.put("list", allStudentsByDegreeId);
         return ResponseEntity.status(HttpStatus.OK).body(response);

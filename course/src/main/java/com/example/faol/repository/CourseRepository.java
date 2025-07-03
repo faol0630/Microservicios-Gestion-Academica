@@ -1,5 +1,6 @@
 package com.example.faol.repository;
 
+import com.example.faol.dto.CourseDTO;
 import com.example.faol.entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

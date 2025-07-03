@@ -1,44 +1,54 @@
 package com.example.faol.service;
 
+import com.example.faol.dto.CourseDTO;
 import com.example.faol.entity.Course;
+import com.example.faol.exception.ResourceNotFoundException;
+import com.example.faol.mapper.CourseMapper;
 import com.example.faol.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseServiceInt{
 
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
 
     public CourseServiceImpl(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
     @Override
-    public List<Course> getAllCourses() {
-        List<Course> courses = courseRepository.findAll();
-        return courses;
+    public List<CourseDTO> getAllCourses() {
+        return courseRepository.findAll().stream()
+                .map(CourseMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Course> getCourseById(Long id) {
-        return courseRepository.findById(id);
+    public CourseDTO getCourseById(Long id) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
+        return CourseMapper.toDTO(course);
     }
 
     @Override
-    public Course saveCourse(Course course) {
-        return courseRepository.save(course);
+    public CourseDTO saveCourse(Course course) {
+        Course savedCourse = courseRepository.save(course);
+        return CourseMapper.toDTO(savedCourse);
     }
 
     @Override
-    public Course updateCourse(Course course, Long id) {
-        Course courseToUpdate = courseRepository.findById(id).get();
+    public CourseDTO updateCourse(Course course, Long id) {
+        Course courseToUpdate = courseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
         courseToUpdate.setCourseName(course.getCourseName());
         courseToUpdate.setCourseDuration(course.getCourseDuration());
         courseToUpdate.setCoursePrice(course.getCoursePrice());
-        return courseRepository.save(courseToUpdate);
+        courseToUpdate.setStudentId(course.getStudentId());
+        Course updatedCourse = courseRepository.save(courseToUpdate);
+        return CourseMapper.toDTO(updatedCourse);
     }
 
     @Override
@@ -57,8 +67,9 @@ public class CourseServiceImpl implements CourseServiceInt{
     }
 
     @Override
-    public List<Course> getAllCoursesByStudentId(Long id) {
-        List<Course> courseList = courseRepository.getAllCoursesByStudentId(id);
-        return courseList;
+    public List<CourseDTO> getAllCoursesByStudentId(Long id) {
+        return courseRepository.getAllCoursesByStudentId(id).stream()
+                .map(CourseMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

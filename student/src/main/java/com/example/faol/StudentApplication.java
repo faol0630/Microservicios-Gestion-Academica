@@ -56,7 +56,9 @@ public class StudentApplication implements CommandLineRunner {
 		System.out.println("\n========================================================");
 		System.out.println("    🚀 Microservicio de Estudiantes Iniciado");
 		System.out.println("    ✅ Servidor Tomcat iniciado correctamente");
+		System.out.println("    📚 Swagger UI: http://localhost:8080/swagger-ui.html");
 		System.out.println("    ✅ Url: http://localhost:8080/student");
+		System.out.println("    ✅ DB Url: http://localhost/phpmyadmin");
 		System.out.println("========================================================\n");
 		System.out.println("========================================================\n");
 	}

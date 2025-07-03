@@ -35,7 +35,9 @@ public class DegreeApplication implements CommandLineRunner {
 		System.out.println("\n========================================================");
 		System.out.println("    🚀 Microservicio de Degrees Iniciado");
 		System.out.println("    ✅ Servidor Tomcat iniciado correctamente");
+		System.out.println("    📚 Swagger UI: http://localhost:8082/swagger-ui.html");
 		System.out.println("    ✅ Url: http://localhost:8082/degree");
+		System.out.println("    ✅ DB Url: http://localhost/phpmyadmin");
 		System.out.println("========================================================\n");
 		System.out.println("========================================================\n");
 	}
