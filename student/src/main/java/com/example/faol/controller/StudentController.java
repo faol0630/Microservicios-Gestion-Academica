@@ -1,17 +1,12 @@
 package com.example.faol.controller;
 
-import com.example.faol.Models.CourseDTO;
 import com.example.faol.dto.StudentDTO;
 import com.example.faol.entity.Student;
-import com.example.faol.exception.ResourceNotFoundException;
 import com.example.faol.service.StudentServiceInt;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/student")

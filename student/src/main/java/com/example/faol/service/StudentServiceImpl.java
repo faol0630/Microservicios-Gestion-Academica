@@ -1,19 +1,12 @@
 package com.example.faol.service;
 
-import com.example.faol.Models.CourseDTO;
-import com.example.faol.Models.ResponseWrapper;
 import com.example.faol.dto.StudentDTO;
 import com.example.faol.entity.Student;
 import com.example.faol.exception.ResourceNotFoundException;
 import com.example.faol.mapper.StudentMapper;
 import com.example.faol.repository.StudentRepository;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
