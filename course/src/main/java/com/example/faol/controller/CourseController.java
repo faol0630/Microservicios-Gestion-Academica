@@ -59,12 +59,5 @@ public class CourseController {
         return courseServiceInt.getCourseCount();
     }
 
-    @GetMapping("/allByStudentId/{id}")
-    public ResponseEntity<?> getAllCoursesByStudentId(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        List<CourseDTO> courses = courseServiceInt.getAllCoursesByStudentId(id);
-        response.put("message", "All DTO courses by student ID retrieved successfully");
-        response.put("courses", courses);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
+
 }

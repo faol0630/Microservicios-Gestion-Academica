@@ -55,12 +55,5 @@ public class DegreeController {
         degreeService.deleteAllDegrees();
     }
 
-    @GetMapping("/allStudentsByDegreeId/{degreeId}")
-    public ResponseEntity<?> allStudentsByDegreeId(@PathVariable Long degreeId) {
-        Map<String, Object> response = new HashMap<>();
-        List<Student> studentList = degreeService.allStudentsByDegreeId(degreeId);
-        response.put("message", "All students by degreeId retrieved successfully");
-        response.put("students", studentList);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
+
 }

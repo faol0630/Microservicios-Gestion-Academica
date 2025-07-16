@@ -61,46 +61,4 @@ public class StudentController {
         return studentService.getStudentCount();
     }
 
-    //este metodo se debe corregir
-    //este metodo se debe corregir
-    //este metodo se debe corregir
-    @GetMapping("/allCoursesByStudentId/{studentId}")
-    public ResponseEntity<?> allByStudentId(@PathVariable Long studentId){
-        Map<String, Object> response = new HashMap<>();
-        try {
-
-            List<CourseDTO> courses = studentService.allByStudentId(studentId);
-
-            if (courses == null) {
-                response.put("message", "Null student list with id: " + studentId);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-
-            } else if (courses.isEmpty()) {
-                response.put("message", "No courses found for studentId: " + studentId);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-
-            }
-            response.put("message", "All courses by studentId retrieved successfully");
-            response.put("courses", courses                                                                                            );
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-
-        }catch (ResourceNotFoundException e) {
-            response.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        } catch (Exception e) {
-            response.put("message", "Error while retrieving courses");
-            response.put("error", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        }
-
-    }
-
-    @GetMapping("/allStudentsByDegreeId/{degreeId}")
-    public ResponseEntity<?> getAllStudentsByDegreeId(@PathVariable Long degreeId){
-        Map<String, Object> response = new HashMap<>();
-        List<StudentDTO> allStudentsByDegreeId = studentService.getAllStudentsByDegreeId(degreeId);
-        response.put("message", "All students by degreeId retrieved successfully");
-        response.put("list", allStudentsByDegreeId);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
 }

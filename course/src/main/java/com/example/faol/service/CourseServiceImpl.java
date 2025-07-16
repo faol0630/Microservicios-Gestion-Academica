@@ -66,10 +66,5 @@ public class CourseServiceImpl implements CourseServiceInt{
        return courseRepository.count();
     }
 
-    @Override
-    public List<CourseDTO> getAllCoursesByStudentId(Long id) {
-        return courseRepository.getAllCoursesByStudentId(id).stream()
-                .map(CourseMapper::toDTO)
-                .collect(Collectors.toList());
-    }
+
 }

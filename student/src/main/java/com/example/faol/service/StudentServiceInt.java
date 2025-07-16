@@ -15,6 +15,4 @@ public interface StudentServiceInt {
     void deleteStudentById(Long id);
     void deleteAllStudents();
     Long getStudentCount();
-    List<CourseDTO> allByStudentId(Long studentId);
-    List<StudentDTO> getAllStudentsByDegreeId(Long degreeId);
 }

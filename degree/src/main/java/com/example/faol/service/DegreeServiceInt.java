@@ -15,6 +15,5 @@ public interface DegreeServiceInt {
     void deleteDegreeById(Long id);
     void deleteAllDegrees();
     Long getDegreeCount();
-    List<Student> allStudentsByDegreeId(Long degreeId);
 
 }

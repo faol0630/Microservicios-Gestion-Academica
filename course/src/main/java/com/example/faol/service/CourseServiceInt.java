@@ -14,5 +14,4 @@ public interface CourseServiceInt {
     void deleteCourseById(Long id);
     void deleteAllCourses();
     Long getCourseCount();
-    List<CourseDTO> getAllCoursesByStudentId(Long id);
 }

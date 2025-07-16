@@ -22,11 +22,8 @@ public class StudentServiceImpl implements StudentServiceInt{
 
     private final StudentRepository studentRepository;
 
-    private RestTemplate restTemplate;
-
-    public StudentServiceImpl(StudentRepository studentRepository, RestTemplate restTemplate) {
+    public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
-        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -77,44 +74,5 @@ public class StudentServiceImpl implements StudentServiceInt{
         return studentRepository.count();
     }
 
-    //con este metodo traemos, desde el otro microservicio(Course) todos los cursos que el estudiante tiene:
-    @Override
-    public List<CourseDTO> allByStudentId(Long studentId){
-        try {
 
-            //llamado al controller del microservicio Course:
-            ResponseEntity<ResponseWrapper> response = restTemplate.exchange(
-                    "http://localhost:8081/course/allByStudentId/" + studentId,
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<ResponseWrapper>() {
-                    }
-            );
-            System.out.println("Response status: " + response.getStatusCode());
-
-            if (response.getBody() == null) {
-                System.out.println("Response body is null");
-                return Collections.emptyList();
-            }
-
-            List<CourseDTO> courses = response.getBody().getCourses();
-            System.out.println("Courses received: " + courses);
-
-            return courses;
-
-
-        }catch (Exception e) {
-            System.err.println("Error calling course service: " + e.getMessage());
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-
-    }
-
-    @Override
-    public List<StudentDTO> getAllStudentsByDegreeId(Long degreeId) {
-        return studentRepository.getAllStudentsByDegreeId(degreeId).stream()
-                .map(StudentMapper::toDTO)
-                .collect(Collectors.toList());
-    }
 }

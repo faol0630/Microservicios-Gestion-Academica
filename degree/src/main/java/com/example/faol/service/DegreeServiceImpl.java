@@ -21,11 +21,10 @@ import java.util.stream.Collectors;
 public class DegreeServiceImpl implements DegreeServiceInt {
 
     private final DegreeRepository degreeRepository;
-    private final RestTemplate restTemplate;
 
-    public DegreeServiceImpl(DegreeRepository degreeRepository, RestTemplate restTemplate) {
+
+    public DegreeServiceImpl(DegreeRepository degreeRepository) {
         this.degreeRepository = degreeRepository;
-        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -74,18 +73,5 @@ public class DegreeServiceImpl implements DegreeServiceInt {
         return degreeRepository.count();
     }
 
-    @Override
-    public List<Student> allStudentsByDegreeId(Long degreeId) {
-        ResponseEntity<ResponseWrapper2>
-                response = restTemplate.exchange(
-                "http://localhost:8080/student/allStudentsByDegreeId/" + degreeId,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<ResponseWrapper2>() {}
-        );
-        return response
-                .getBody() != null ? response
-                .getBody().getList() : Collections
-                .emptyList();
-    }
+
 }
