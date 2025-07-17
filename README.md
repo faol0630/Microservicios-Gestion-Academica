@@ -2,7 +2,7 @@
 # Microservicios Gestión Académica 
 
 ## Descripción
-Sistema de gestión académica implementado con arquitectura de microservicios utilizando Spring Boot. El sistema permite gestionar estudiantes, sus cursos y grados académicos, proporcionando una API REST para cada uno de estos servicios.
+Sistema de gestión académica implementado con arquitectura de microservicios utilizando Spring Boot. El sistema permite gestionar estudiantes, profesores, cursos y grados académicos, proporcionando una API REST para cada uno de estos servicios.
 
 ## Microservicios
 El proyecto está compuesto por tres microservicios principales:
@@ -21,6 +21,10 @@ El proyecto está compuesto por tres microservicios principales:
    - Gestión de grados académicos
    - Permite consultar estudiantes por grado
    - Endpoints en `/studentDegree`
+
+4. **Servicio de Profesores**
+   - Gestión de información básica de profesores 
+   - CRUD operaciones para profesores
 
 ## Tecnologías Utilizadas
 - Java 17
@@ -84,6 +88,7 @@ La documentación detallada de la API está disponible a través de Swagger UI:
 - http://localhost:8080/swagger-ui.html
 - http://localhost:8081/swagger-ui.html
 - http://localhost:8082/swagger-ui.html
+- http://localhost:8083/swagger-ui.html
 
 
 ## Contacto
