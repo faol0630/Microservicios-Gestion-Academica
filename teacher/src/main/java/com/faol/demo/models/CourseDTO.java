@@ -1,15 +1,17 @@
-package com.example.faol.dto;
+package com.faol.demo.models;
 
 public class CourseDTO {
 
     private Long courseId;
-    private String courseName;
-    private String courseDuration;
-    private Double coursePrice;
-    private Long studentId;
-    private Long teacherId;
 
-    // Getters and Setters
+    private String courseName;
+
+    private String courseDuration;
+
+    private Double coursePrice;
+
+    public CourseDTO() {
+    }
 
     public Long getCourseId() {
         return courseId;
@@ -41,21 +43,5 @@ public class CourseDTO {
 
     public void setCoursePrice(Double coursePrice) {
         this.coursePrice = coursePrice;
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public Long getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
     }
 }

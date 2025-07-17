@@ -15,6 +15,7 @@ public class CourseMapper {
         courseDTO.setCourseDuration(course.getCourseDuration());
         courseDTO.setCoursePrice(course.getCoursePrice());
         courseDTO.setStudentId(course.getStudentId());
+        courseDTO.setTeacherId(course.getTeacherId());
         return courseDTO;
     }
 
@@ -28,6 +29,7 @@ public class CourseMapper {
         course.setCourseDuration(courseDTO.getCourseDuration());
         course.setCoursePrice(courseDTO.getCoursePrice());
         course.setStudentId(courseDTO.getStudentId());
+        course.setTeacherId(courseDTO.getTeacherId());
         return course;
     }
 }

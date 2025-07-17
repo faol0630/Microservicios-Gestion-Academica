@@ -27,14 +27,19 @@ public class Course {
     @NotNull(message = "Student ID cannot be null")
     private Long studentId;
 
+    @Column(name = "teacher_id")
+    @NotNull(message = "Teacher ID cannot be null")
+    private Long teacherId;
+
     public Course() {
     }
 
-    public Course(String courseName, String courseDuration, Double coursePrice, Long studentId) {
+    public Course(String courseName, String courseDuration, Double coursePrice, Long studentId, Long teacherId) {
         this.courseName = courseName;
         this.courseDuration = courseDuration;
         this.coursePrice = coursePrice;
         this.studentId = studentId;
+        this.teacherId = teacherId;
     }
 
     public Long getCourseId() {
@@ -77,6 +82,14 @@ public class Course {
         this.studentId = studentId;
     }
 
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -85,6 +98,7 @@ public class Course {
                 ", courseDuration=" + courseDuration +
                 ", coursePrice=" + coursePrice +
                 ", studentId=" + studentId +
+                ", teacherId=" + teacherId +
                 '}';
     }
 }

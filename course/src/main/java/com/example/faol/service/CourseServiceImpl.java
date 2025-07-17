@@ -47,6 +47,7 @@ public class CourseServiceImpl implements CourseServiceInt{
         courseToUpdate.setCourseDuration(course.getCourseDuration());
         courseToUpdate.setCoursePrice(course.getCoursePrice());
         courseToUpdate.setStudentId(course.getStudentId());
+        courseToUpdate.setTeacherId(course.getTeacherId());
         Course updatedCourse = courseRepository.save(courseToUpdate);
         return CourseMapper.toDTO(updatedCourse);
     }

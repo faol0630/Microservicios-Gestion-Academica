@@ -25,28 +25,28 @@ public class CourseApplication implements CommandLineRunner {
 
 		long size = courseRepository.count();
 		if (size == 0){
-			Course course1 = new Course("Java", "12 months", 1000.0, 1L);
+			Course course1 = new Course("Java", "12 months", 1000.0, 1L, 5L);
 			courseRepository.save(course1);
 
-			Course course2 = new Course("Python", "10 months", 500.0, 2L);
+			Course course2 = new Course("Python", "10 months", 500.0, 2L, 2L);
 			courseRepository.save(course2);
 
-			Course course3 = new Course("C++", "15 months" , 1500.0, 2L);
+			Course course3 = new Course("C++", "15 months" , 1500.0, 2L, 1L);
 			courseRepository.save(course3);
 
-			Course course4 = new Course("C#", "18 months", 2000.0, 1L);
+			Course course4 = new Course("C#", "18 months", 2000.0, 1L, 5L);
 			courseRepository.save(course4);
 
-			Course course5 = new Course("JavaScript", "15 months", 1000.0, 3L);
+			Course course5 = new Course("JavaScript", "15 months", 1000.0, 3L, 1L);
 			courseRepository.save(course5);
 
-			Course course6 = new Course("SQL", "12 months", 1500.0, 3L);
+			Course course6 = new Course("SQL", "12 months", 1500.0, 3L, 2L);
 			courseRepository.save(course6);
 
-			Course course7 = new Course("HTML", "10 months" , 1000.0, 2L);
+			Course course7 = new Course("HTML", "10 months" , 1000.0, 2L, 3L);
 			courseRepository.save(course7);
 
-			Course course8 = new Course("CSS", "12 months", 1500.0, 1L);
+			Course course8 = new Course("CSS", "12 months", 1500.0, 1L, 3L);
 			courseRepository.save(course8);
 		}
 
